@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,13 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::post('register', [AuthController::class, 'register']);
-
 Route::post('login', [AuthController::class, 'login']);
+
+Route::apiResource('books', BookController::class)->middleware('auth:api');
+
+Route::get('unauthenticated', function() {
+    return response()->json(['Please authenticate on the app to use this resource.'], 401);
+})->name('unauthenticated');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
