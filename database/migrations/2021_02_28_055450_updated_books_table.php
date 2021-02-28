@@ -13,12 +13,14 @@ class UpdatedBooksTable extends Migration
      */
     public function up()
     {
+        $this->down();
+
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('info');
             $table->text('image');
-            $table->number('pages');
+            $table->integer('pages');
             $table->timestamps();
         });
     }
