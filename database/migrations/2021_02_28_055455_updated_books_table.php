@@ -17,6 +17,7 @@ class UpdatedBooksTable extends Migration
 
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('title');
             $table->text('info');
             $table->text('image');
