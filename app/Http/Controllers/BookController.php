@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -13,17 +14,13 @@ class BookController extends Controller
      */
     public function index()
     {
-        return "We're here";
-    }
+        $user = auth()->user();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $user->books;
+
+        return $user->books;
+
+        return "We're here";
     }
 
     /**
@@ -34,41 +31,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'info' => 'nullable|string',
+            'image' => 'nullable|URL',
+            'pages' => 'nullable|integer',
+            'user_id' => 'required|integer',
+            'google_id' => 'required|string'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $book = Book::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return $book;
     }
 
     /**
@@ -79,6 +53,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
     }
 }

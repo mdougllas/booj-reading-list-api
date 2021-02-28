@@ -22,6 +22,7 @@ class UpdatedBooksTable extends Migration
             $table->text('info');
             $table->text('image');
             $table->integer('pages');
+            $table->string('google_id');
             $table->timestamps();
         });
     }
